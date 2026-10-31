@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HEXZA TOOLS</title>
+<style>
+:root{--bg:#080b12;--panel:#101722;--line:#263448;--muted:#94a3b8;--blue:#3b82f6;--text:#e5e7eb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px Arial,sans-serif}
+.layout{display:flex;min-height:100vh}.side{width:235px;background:#0e1420;border-right:1px solid #202a3a;padding:24px 15px;flex-shrink:0}
+.logo{font-weight:800;font-size:21px;color:#60a5fa;margin:4px 8px 35px}.logo span{color:white}
+.label{font-size:10px;letter-spacing:1.5px;color:#64748b;margin:22px 10px 10px}
+.nav{display:block;width:100%;text-align:left;padding:13px;border:0;border-radius:8px;background:transparent;color:#aab6c7;margin:5px 0;cursor:pointer}
+.nav:hover,.nav.active{background:#17263b;color:#60a5fa}
+main{padding:28px;width:calc(100% - 235px);max-width:1200px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.pill{font-size:11px;color:#4ade80;background:#10271e;border:1px solid #1c5035;border-radius:20px;padding:8px 12px}
+.page{display:none}.page.active{display:block}
+.hero,.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px;margin-bottom:17px}
+.hero{background:linear-gradient(120deg,#14263e,#101827);border-color:#243d5b}
+h1{font-size:27px;margin:0 0 9px}h2{font-size:19px;margin:0 0 9px}h3{font-size:15px;margin:0 0 13px}
+p,.muted{color:var(--muted);line-height:1.6;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;cursor:pointer}
+.tile b{display:block;margin:8px 0}.tile span{color:var(--muted);font-size:12px}
+input,select{width:100%;padding:12px;background:#080e18;border:1px solid #2b394c;border-radius:7px;color:white;outline:none;margin:6px 0 13px}
+input:focus,select:focus{border-color:var(--blue)}label{font-size:12px;color:#cbd5e1}
+button.primary{background:#2563eb;color:white;border:0;border-radius:7px;padding:12px 17px;font-weight:bold;cursor:pointer}
+button.secondary{background:#263448;color:white;border:1px solid #394b63;border-radius:7px;padding:11px 15px;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1}
+.notice{padding:12px;background:#241e12;border:1px solid #66502a;color:#facc15;border-radius:8px;font-size:12px;line-height:1.6;margin:12px 0}
+.result{display:none;margin-top:15px;padding:14px;background:#0b1727;border:1px solid #24466c;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.6}
+.small{font-size:11px;color:#718096}.tool-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+.filebox{border:1px dashed #41536b;padding:20px;border-radius:9px;text-align:center;margin:8px 0 14px}
+@media(max-width:760px){.layout{display:block}.side{width:100%;padding:14px;border:0;border-bottom:1px solid var(--line)}.logo{margin:4px 8px 15px}.label{display:none}.nav{display:inline-block;width:auto;padding:10px 11px;font-size:12px}.navs{display:flex;flex-wrap:wrap}main{width:100%;padding:17px}.grid{grid-template-columns:1fr}.row{display:block}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+  <div class="logo">HEXZA <span>TOOLS</span></div>
+  <div class="label">MAIN MENU</div>
+  <div class="navs">
+    <button class="nav active" data-page="dashboard">◈ Dashboard</button>
+  </div>
+  <div class="label">ROBLOX TOOLS</div>
+  <div class="navs">
+    <button class="nav" data-page="cookie">◉ Cookie Checker</button>
+    <button class="nav" data-page="nontrue">◉ Nontrue Checker</button>
+    <button class="nav" data-page="bypass">◉ Bypass</button>
+  </div>
+  <div class="label">SETTINGS</div>
+  <div class="navs"><button class="nav" data-page="settings">⚙ Webhook Settings</button></div>
+</aside>
+<main>
+<header><h2 id="pageTitle">Dashboard</h2><span class="pill">● SYSTEM ONLINE</span></header>
+
+<section class="page active" id="dashboard">
+  <div class="hero"><h1>Welcome to HEXZA TOOLS</h1><p>Roblox account diagnostics dashboard. Pilih salah satu tools untuk memulai.</p></div>
+  <div class="grid">
+    <div class="tile" data-open="cookie">🍪<b>Cookie Checker</b><span>Security checklist</span></div>
+    <div class="tile" data-open="nontrue">🔎<b>Nontrue Checker</b><span>Username, profile and IP format diagnostics</span></div>
+    <div class="tile" data-open="bypass">🛡️<b>Bypass Diagnostics</b><span>Account recovery guidance</span></div>
+  </div>
+</section>
+
+<section class="page" id="settings">
+  <div class="card"><h2>Webhook Settings</h2><p>Masukkan URL webhook untuk masing-masing tool. URL dikirim langsung ke backend dan tidak disimpan di browser. Pengaturan ini berada di memori server dan perlu dimasukkan ulang setelah server restart.</p>
+    <label>Admin Key</label><input id="adminKey" type="password" autocomplete="off" placeholder="HEXZA_ADMIN_KEY">
+    <label>Cookie Checker Webhook</label><input id="hookCookie" type="password" autocomplete="off" placeholder="https://discord.com/api/webhooks/...">
+    <button class="primary" onclick="saveHook('cookie','hookCookie')">Save Cookie Webhook</button>
+    <hr style="border:0;border-top:1px solid #263448;margin:20px 0">
+    <label>Nontrue Checker Webhook</label><input id="hookNontrue" type="password" autocomplete="off" placeholder="https://discord.com/api/webhooks/...">
+    <button class="primary" onclick="saveHook('nontrue','hookNontrue')">Save Nontrue Webhook</button>
+    <hr style="border:0;border-top:1px solid #263448;margin:20px 0">
+    <label>Bypass Diagnostics Webhook</label><input id="hookBypass" type="password" autocomplete="off" placeholder="https://discord.com/api/webhooks/...">
+    <button class="primary" onclick="saveHook('bypass','hookBypass')">Save Bypass Webhook</button>
+    <div class="result" id="hookResult"></div>
+  </div>
+</section>
+
+<section class="page" id="nontrue">
+  <div class="tool-head"><h2>Nontrue Checker</h2><span class="pill">FORMAT CHECK</span></div>
+  <div class="card">
+    <h3>Single Account Diagnostics</h3>
+    <p>Periksa format username, User ID, IP, negara IP, dan kecocokan URL profil. Pemeriksaan ini tidak mencoba login atau memverifikasi password.</p>
+    <label>Username</label><input id="username" placeholder="Roblox username">
+    <div class="row">
+      <div><label>User ID</label><input id="userId" placeholder="Angka User ID"></div>
+      <div><label>IP Address</label><input id="ipAddress" placeholder="Contoh: 8.8.8.8"></div>
+    </div>
+    <label>Profile URL</label><input id="profileUrl" placeholder="https://www.roblox.com/users/123/profile">
+    <div class="notice">Password ditampilkan sebagai [REDACTED / NOT COLLECTED]. Jangan masukkan password, cookie, token, atau kode pemulihan.</div>
+    <button class="primary" onclick="checkSingle()">CHECK ACCOUNT & SEND EMBED</button>
+    <div class="result" id="singleResult"></div>
+  </div>
+  <div class="card">
+    <h3>Bulk Account Diagnostics</h3>
+    <p>Upload CSV dengan header: <code>username,user_id,ip_address,profile_url</code>. TXT berbentuk CSV juga didukung. Maksimal 100 baris per proses.</p>
+    <div class="filebox">📄<br><b>Upload TXT / CSV</b><br><span class="small">Data nonrahasia saja</span><br><input id="bulkFile" type="file" accept=".txt,.csv"></div>
+    <button class="primary" onclick="checkBulk()">START BULK CHECK</button>
+    <div class="result" id="bulkResult"></div>
+  </div>
+</section>
+
+<section class="page" id="cookie">
+  <div class="card"><h2>Cookie Security Checker</h2><p>Checklist keamanan akun tanpa meminta atau memproses cookie autentikasi.</p>
+    <div class="notice">Jangan tempelkan .ROBLOSECURITY atau cookie sesi ke website mana pun.</div>
+    <label><input type="checkbox" class="securityCheck"> Saya tidak membagikan cookie autentikasi.</label><br><br>
+    <label><input type="checkbox" class="securityCheck"> Saya menggunakan password unik.</label><br><br>
+    <label><input type="checkbox" class="securityCheck"> Saya mengaktifkan fitur keamanan yang tersedia.</label><br><br>
+    <label><input type="checkbox" class="securityCheck"> Saya hanya login melalui situs resmi Roblox.</label><br><br>
+    <button class="primary" onclick="checkCookie()">CHECK SECURITY & SEND EMBED</button>
+    <div class="result" id="cookieResult"></div>
+  </div>
+</section>
+
+<section class="page" id="bypass">
+  <div class="card"><h2>Bypass / Account Recovery Diagnostics</h2><p>Halaman ini membantu memilih panduan pemulihan resmi, bukan melewati verifikasi atau menghapus email akun tanpa otorisasi.</p>
+    <label>Jenis kendala</label>
+    <select id="problem">
+      <option value="locked">Account locked</option>
+      <option value="password">Forgot password</option>
+      <option value="email">Email verification problem</option>
+      <option value="security">Security verification problem</option>
+      <option value="compromised">Account may be compromised</option>
+    </select>
+    <button class="primary" onclick="checkBypass()">RUN DIAGNOSTICS & SEND EMBED</button>
+    <div class="result" id="bypassResult"></div>
+    <p><a style="color:#60a5fa" href="https://www.roblox.com/support" target="_blank" rel="noopener">Official Roblox Support →</a></p>
+  </div>
+</section>
+<p class="small" style="text-align:center;margin:28px 0">HEXZA TOOLS • Independent project • Not affiliated with Roblox Corporation</p>
+</main>
+</div>
+<script>
+const titles={dashboard:"Dashboard",settings:"Webhook Settings",nontrue:"Nontrue Checker",cookie:"Cookie Checker",bypass:"Bypass Diagnostics"};
+function openPage(id){
+ document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
+ document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
+ document.getElementById("pageTitle").textContent=titles[id]||"HEXZA TOOLS";
+}
+document.querySelectorAll(".nav").forEach(b=>b.addEventListener("click",()=>openPage(b.dataset.page)));
+document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>openPage(b.dataset.open)));
+function show(id,msg){const el=document.getElementById(id);el.style.display="block";el.textContent=msg;}
+async function api(url,options={}){const r=await fetch(url,options);const d=await r.json();if(!r.ok)throw new Error(d.error||"Request failed");return d;}
+async function saveHook(tool,inputId){
+ const result=document.getElementById("hookResult");
+ try{
+  const d=await api("/api/webhook/"+tool,{method:"POST",headers:{"Content-Type":"application/json","X-Admin-Key":document.getElementById("adminKey").value},body:JSON.stringify({url:document.getElementById(inputId).value})});
+  show("hookResult",d.message);
+  document.getElementById(inputId).value="";
+ }catch(e){show("hookResult","Error: "+e.message);}
+}
+async function checkSingle(){
+ try{
+  const data={username:document.getElementById("username").value,user_id:document.getElementById("userId").value,ip_address:document.getElementById("ipAddress").value,profile_url:document.getElementById("profileUrl").value};
+  const d=await api("/api/nontrue",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+  show("singleResult",JSON.stringify(d.record,null,2)+"\nDiscord: "+d.delivery);
+ }catch(e){show("singleResult","Error: "+e.message);}
+}
+async function checkBulk(){
+ const file=document.getElementById("bulkFile").files[0];if(!file){show("bulkResult","Pilih file TXT/CSV terlebih dahulu.");return;}
+ const fd=new FormData();fd.append("file",file);
+ try{
+  const d=await api("/api/nontrue/bulk",{method:"POST",body:fd});
+  show("bulkResult",`SELESAI\nTotal: ${d.total}\nValid format: ${d.valid}\nInvalid format: ${d.invalid}\nEmbed terkirim: ${d.embeds_sent}\nTXT ke Discord: ${d.txt_sent?"BERHASIL":"GAGAL"} (${d.txt_delivery})\n\nFile laporan TXT dikirim sebagai lampiran ke webhook Nontrue.`);
+ }catch(e){show("bulkResult","Error: "+e.message);}
+}
+async function checkCookie(){
+ const completed=[...document.querySelectorAll(".securityCheck")].filter(x=>x.checked).length;
+ try{const d=await api("/api/cookie",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({completed})});show("cookieResult",`Checklist: ${completed}/4\nDiscord: ${d.delivery}`);}
+ catch(e){show("cookieResult","Error: "+e.message);}
+}
+async function checkBypass(){
+ const problem=document.getElementById("problem").value;
+ try{const d=await api("/api/bypass",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({problem})});show("bypassResult",`Diagnostic selesai: ${problem}\nDiscord: ${d.delivery}\n\nGunakan Roblox Support untuk pemulihan resmi.`);}
+ catch(e){show("bypassResult","Error: "+e.message);}
+}
+</script>
+</body>
+</html>
